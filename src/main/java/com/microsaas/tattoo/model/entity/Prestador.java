@@ -7,17 +7,27 @@ public class Prestador {
 	private String foto;
 	private String endereco;
 	private String descricao;
+	private String cidadePrestador;
 	
 	public Prestador() {
 		
 	}
 	
-	public Prestador(String nomeFantasia, String nomeCompleto, String foto, String endereco, String descricao) {
+	public Prestador(String nomeFantasia, String nomeCompleto, String foto, String endereco, String descricao, String cidadePrestador) {
 		setNomeFantasia(nomeFantasia);
 		setNomeCompleto(nomeCompleto);
 		setFoto(foto);
 		setEndereco(endereco);
 		setDescricao(descricao);
+		setCidadePrestador(cidadePrestador);
+	}
+
+	public String getCidadePrestador() {
+		return cidadePrestador;
+	}
+
+	public void setCidadePrestador(String cidadePrestador) {
+		this.cidadePrestador = cidadePrestador;
 	}
 
 	public String getNomeFantasia() {

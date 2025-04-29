@@ -7,19 +7,20 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import jakarta.servlet.ServletException;
+
 public class DatabaseConnection {
 
-	private static final String RESOURCE = "java:/comp/env/jdbc/mysql";
+	private static final String RESOURCE = "java:/comp/env/jdbc/MicroSaas";
 	
-	public static Connection getConnection() throws SQLException{
+	public static Connection getConnection() throws SQLException, ServletException{
 		try {
 			InitialContext context = new InitialContext();
 			DataSource dataSource = (DataSource) context.lookup(RESOURCE);
 			return dataSource.getConnection();
 		}catch(NamingException e) {
-			e.printStackTrace();
+			throw new ServletException("Erro na conexão JNDI", e);
 		}
-		return null;
 	}
 	
 }
