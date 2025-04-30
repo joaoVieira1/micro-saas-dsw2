@@ -18,6 +18,7 @@ import com.microsaas.tattoo.model.dao.connection.DatabaseConnection;
 import com.microsaas.tattoo.model.entity.Prestador;
 import com.microsaas.tattoo.model.entity.TipoUsuario;
 import com.microsaas.tattoo.model.entity.Usuario;
+import com.microsaas.tattoo.model.service.CadastroService;
 import com.microsaas.tattoo.model.utils.CriptografiaUtils;
 
 import jakarta.servlet.ServletException;
@@ -46,68 +47,38 @@ public class CadastroPrestadorCommand implements Command{
 		
 		//auxiliar
 		List<String> tiposPermitidos = Arrays.asList("image/png", "image/jpeg");
-		Connection connection = null;
+		final String URL_UPLOADS = "C:\\IFSP\\5 Semestre\\DESENVOLVIMENTO WEB 2\\desenvolvimento web 2\\uploads";
 		String mensagem = "";
 		Boolean salvo = false;
+		CadastroService cadastroService = new CadastroService();
+	
 		
 		if(!tiposPermitidos.contains(contentType)) {
 			mensagem = "Selecione uma foto do tipo png ou jpeg";
+			request.setAttribute("mensagem", mensagem);
+			request.setAttribute("salvo", false);
+			
+			return "cadastroPrestador.jsp";
 		}
 		
 		String nomeArquivo = UUID.randomUUID().toString() + "_" + Paths.get(foto.getSubmittedFileName()).getFileName().toString();
-		String uploadPath = "C:\\IFSP\\5 Semestre\\DESENVOLVIMENTO WEB 2\\desenvolvimento web 2\\uploads";
+		String uploadPath = URL_UPLOADS;
 		Files.createDirectories(Paths.get(uploadPath));	
 		
 		if(senha.equals(confirmarSenha)) {
-			UsuarioDao dao = new UsuarioDao();
-			
 			try {
-				connection = DatabaseConnection.getConnection();
-				connection.setAutoCommit(false);
-
 				Prestador novoPrestador = new Prestador(nome_fantasia, nome_completo, nomeArquivo, endereco, descricao, cidade);
-				int idPrestador = dao.inserirPrestador(novoPrestador, connection);
-					
 				String senhaCriptografada = CriptografiaUtils.criptografarSenha(senha);
-				Usuario novoUsuario = new Usuario(email, senhaCriptografada, TipoUsuario.PRESTADOR, idPrestador);
-				salvo = dao.inserirUsuario(novoUsuario, connection);
-					
-				connection.commit();
+				Usuario novoUsuario = new Usuario(email, senhaCriptografada, TipoUsuario.PRESTADOR, 0);
+				
+				salvo = cadastroService.cadastrarPrestador(novoUsuario, novoPrestador);
 				
 				foto.write(uploadPath + File.separator + nomeArquivo);	
 				mensagem = "Cadastro realizado com sucesso!";
 				
 			}catch(SQLException e) {
-				if(connection != null) {
-					try {
-						connection.rollback();
-					}catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-				}
-				
-				if(e.getErrorCode() == 1062) {
-					String error = e.getMessage();
-					
-					if(error.contains("nome_fantasia")) {
-						mensagem = "Apelido já cadastrado!";
-					}
-					
-					if(error.contains("email")) {
-						mensagem = "Email já cadastrado!";
-					}
-				}
-				
-			}finally {
-				if(connection != null) {
-					try {
-						connection.setAutoCommit(true);
-					}catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-				}
+				mensagem = cadastroService.tratarErroCadastroPrestador(e);
 			}
-			
 		}else {
 			mensagem = "Certifique-se de confirmar a senha corretamente";
 		}

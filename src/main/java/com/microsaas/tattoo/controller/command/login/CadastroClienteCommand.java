@@ -12,6 +12,7 @@ import com.microsaas.tattoo.model.dao.connection.DatabaseConnection;
 import com.microsaas.tattoo.model.entity.Cliente;
 import com.microsaas.tattoo.model.entity.TipoUsuario;
 import com.microsaas.tattoo.model.entity.Usuario;
+import com.microsaas.tattoo.model.service.CadastroService;
 import com.microsaas.tattoo.model.utils.CriptografiaUtils;
 
 import jakarta.servlet.ServletException;
@@ -36,61 +37,20 @@ public class CadastroClienteCommand implements Command{
 		//auxiliares
 		String mensagem = "";
 		Boolean salvo = false; 
-		Connection connection = null;
+		CadastroService cadastroService = new CadastroService();
 		
 		if(senha.equals(confirmarSenha)) {
-			UsuarioDao dao = new UsuarioDao();
-			
 			try {
-				connection = DatabaseConnection.getConnection();
-				connection.setAutoCommit(false);
-				
-				//persiste o cliente
 				Cliente novoCliente = new Cliente(nome, CPF, endereco, contato);
-				int idCliente = dao.inserirCliente(novoCliente, connection);
-				
-				//criptografa e persiste o usuário utilizando o id gerado do cliente como referência
 				String senhaCriptografada = CriptografiaUtils.criptografarSenha(senha);
-				Usuario novoUsuario = new Usuario(email, senhaCriptografada, TipoUsuario.CLIENTE, idCliente);
-				salvo = dao.inserirUsuario(novoUsuario, connection);
+				Usuario novoUsuario = new Usuario(email, senhaCriptografada, TipoUsuario.CLIENTE, 0);
 				
-				//commit da persistência
-				connection.commit();
-				
+				salvo = cadastroService.cadastrarCliente(novoUsuario, novoCliente);
 				mensagem = "Cadastro realizado com sucesso!";
 				
 			}catch(SQLException e) {
-				//caso estore uma exceção damos um rollback para manter a integridada e não criar um usuário sem referência
-				if(connection != null) {
-					try {
-						connection.rollback();
-					}catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-				}
-				
-				//número de erro para duplicação de dados
-				if(e.getErrorCode() == 1062) {
-					String error = e.getMessage();
-					
-					if(error.contains("cpf")) {
-						mensagem = "CPF já cadastrado!";
-					}
-					
-					if(error.contains("email")) {
-						mensagem = "Email já cadastrado!";
-					}
-				}
-			}finally {
-				if(connection != null) {
-					try {
-						connection.setAutoCommit(true);
-					}catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-				}
+				mensagem = cadastroService.tratarErroCadastroCliente(e);
 			}
-			
 		}else {
 			mensagem = "Certifique-se de confirmar a senha corretamente";
 		}

@@ -14,6 +14,7 @@ import com.microsaas.tattoo.controller.command.login.CadastroClienteCommand;
 import com.microsaas.tattoo.controller.command.login.CadastroPrestadorCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroClienteCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroPrestadorCommand;
+import com.microsaas.tattoo.controller.command.login.GetIndexCommand;
 import com.microsaas.tattoo.controller.command.login.GetPaginaClienteCommand;
 import com.microsaas.tattoo.controller.command.login.GetPaginaPrestadorCommand;
 import com.microsaas.tattoo.controller.command.login.LoginCommand;
@@ -53,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 			command = new GetPaginaClienteCommand();
 		}else if(action.equals("getPaginaPrestador")) {
 			command = new GetPaginaPrestadorCommand();
+		}else if(action.equals("getIndex")) {
+			command = new GetIndexCommand();
 		}
 		
 		String view = command.execute(request, response);

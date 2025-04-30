@@ -15,12 +15,18 @@ import jakarta.servlet.ServletException;
 
 public class UsuarioDao {
 	
+	private final Connection connection;
+	
 	private static final String INSERIR_CLIENTE = "INSERT INTO cliente (nome, CPF, endereco, contato) VALUES (?, ?, ?, ?)";
 	private static final String INSERIR_PRESTADOR = "INSERT INTO prestador (nome_fantasia, nome_completo, foto_perfil, endereco, descricao, cidade_prestador) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String INSERIR_USUARIO = "INSERT INTO usuario (email, senha, tipo_usuario, ref_id) VALUES (?, ?, ?, ?)";
 	private static final String RETORNAR_USUARIO_PELO_EMAIL = "SELECT * FROM usuario WHERE email = ?";
 	
-	public Usuario retornarUsuarioPeloEmail(String email, Connection connection) throws SQLException {
+	public UsuarioDao(Connection connection) {
+		this.connection = connection;
+	}
+	
+	public Usuario retornarUsuarioPeloEmail(String email) throws SQLException {
 		Usuario usuario = null;
 		
 		if(email != null) {
@@ -44,7 +50,7 @@ public class UsuarioDao {
 		return usuario;
 	}
 	
-	public boolean inserirUsuario(Usuario usuario, Connection connection) throws ServletException, SQLException{
+	public boolean inserirUsuario(Usuario usuario) throws ServletException, SQLException{
 		int rows = 0;
 		
 		if(usuario != null) {
@@ -62,7 +68,7 @@ public class UsuarioDao {
 		return rows > 0;
 	}
 	
-	public int inserirCliente(Cliente cliente, Connection connection) throws ServletException, SQLException {
+	public int inserirCliente(Cliente cliente) throws ServletException, SQLException {
 		int idCliente = 0;
 		
 		if(cliente != null) {
@@ -87,7 +93,7 @@ public class UsuarioDao {
 		return idCliente;
 	}
 	
-	public int inserirPrestador(Prestador prestador, Connection connection) throws ServletException, SQLException {
+	public int inserirPrestador(Prestador prestador) throws ServletException, SQLException {
 		int idPrestador = 0;
 		
 		if(prestador != null) {
