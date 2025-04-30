@@ -1,0 +1,36 @@
+CREATE DATABASE micro_saas;
+
+USE micro_saas;
+
+CREATE TABLE usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) UNIQUE KEY NOT NULL,
+  senha VARCHAR(255) NOT NULL,
+  tipo_usuario ENUM('CLIENTE', 'PRESTADOR') NOT NULL,
+  ref_id INT NOT NULL
+)ENGINE=InnoDB;
+
+CREATE TABLE prestador(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_fantasia VARCHAR(120) UNIQUE KEY NOT NULL,
+    nome_completo VARCHAR(120) NOT NULL,
+    foto_perfil VARCHAR(255) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    descricao VARCHAR(515) NOT NULL,
+    cidade_prestador VARCHAR(255) NOT NULL,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+)ENGINE=InnoDB;
+
+CREATE TABLE cliente(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    cpf VARCHAR(255) UNIQUE KEY NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    contato VARCHAR(255) NOT NULL
+)ENGINE=InnoDB;
+
+CREATE TABLE imagem_servico(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    foto VARCHAR(255) NOT NULL,
+    prestador_id INT NOT NULL
+)ENGINE=InnoDB;
