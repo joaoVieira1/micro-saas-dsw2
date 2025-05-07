@@ -32,5 +32,17 @@ CREATE TABLE cliente(
 CREATE TABLE imagem_servico(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     foto VARCHAR(255) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
     prestador_id INT NOT NULL
 )ENGINE=InnoDB;
+
+CREATE TABLE agendamento (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  prestador_id INT NOT NULL,
+  cliente_id INT DEFAULT NULL,
+  data_hora DATETIME NOT NULL,
+  status ENUM('DESOCUPADO', 'OCUPADO') DEFAULT 'DESOCUPADO',
+  CONSTRAINT fk_agendamento_prestador FOREIGN KEY (prestador_id) REFERENCES prestador(id),
+  CONSTRAINT fk_agendamento_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+) ENGINE=InnoDB;
+

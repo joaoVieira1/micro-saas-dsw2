@@ -10,25 +10,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import com.microsaas.tattoo.controller.command.Command;
-import com.microsaas.tattoo.controller.command.login.CadastroClienteCommand;
-import com.microsaas.tattoo.controller.command.login.CadastroPrestadorCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroClienteCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroPrestadorCommand;
-import com.microsaas.tattoo.controller.command.login.GetIndexCommand;
-import com.microsaas.tattoo.controller.command.login.GetPaginaClienteCommand;
-import com.microsaas.tattoo.controller.command.login.GetPaginaPrestadorCommand;
-import com.microsaas.tattoo.controller.command.login.LoginCommand;
-import com.microsaas.tattoo.controller.command.login.LogoutCommand;
+import com.microsaas.tattoo.controller.command.login.GetFormHorarioAgendamentoCommand;
+import com.microsaas.tattoo.controller.command.login.GetFormTatuagemCommand;
+import com.microsaas.tattoo.controller.command.login.PostarTatuagemCommand;
+import com.microsaas.tattoo.controller.command.login.PublicarHorarioCommand;
 
-
-@WebServlet("/login.do")
+@WebServlet("/prestador.do")
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024,
 		maxFileSize = 1024 * 1024 * 5,
 		maxRequestSize = 1024 * 1024 * 10)
-public class LoginServlet extends HttpServlet {
+public class PrestadorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
+    public PrestadorServlet() {
+        super();
+    }
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
@@ -36,29 +37,19 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		processRequest(request, response);
 	}
-	
+
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String action = request.getParameter("action");
 		Command command = null;
 		
-		if(action.equals("getCadastroCliente")) {
-			command = new GetCadastroClienteCommand();
-		}else if(action.equals("getCadastroPrestador")) {
-			command = new GetCadastroPrestadorCommand();
-		}else if(action.equals("cadastroCliente")) {
-			command = new CadastroClienteCommand();
-		}else if(action.equals("cadastroPrestador")) {
-			command = new CadastroPrestadorCommand();
-		}else if(action.equals("login")) {
-			command = new LoginCommand();
-		}else if(action.equals("getPaginaCliente")){
-			command = new GetPaginaClienteCommand();
-		}else if(action.equals("getPaginaPrestador")) {
-			command = new GetPaginaPrestadorCommand();
-		}else if(action.equals("getIndex")) {
-			command = new GetIndexCommand();
-		}else if(action.equals("logout")) {
-			command = new LogoutCommand();
+		if(action.equals("postarTatuagem")) {
+			command = new PostarTatuagemCommand();
+		}else if(action.equals("getFormTatuagem")) {
+			command = new GetFormTatuagemCommand();
+		}else if(action.equals("getFormHorario")) {
+			command = new GetFormHorarioAgendamentoCommand();
+		}else if(action.equals("publicarHorario")) {
+			command = new PublicarHorarioCommand();
 		}
 		
 		String view = command.execute(request, response);
@@ -66,5 +57,4 @@ public class LoginServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 		
 	}
-
 }

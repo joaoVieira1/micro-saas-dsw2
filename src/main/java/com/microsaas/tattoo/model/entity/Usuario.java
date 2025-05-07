@@ -42,6 +42,12 @@ public class Usuario {
 	public void setRefId(int ref_id) {
 		this.refId = ref_id;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [email=" + email + ", senha=" + senha + ", tipoUsuario=" + tipoUsuario + ", refId=" + refId
+				+ "]";
+	}
 	
 	
 	

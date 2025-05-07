@@ -8,13 +8,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class GetPaginaPrestadorCommand implements Command{
+public class LogoutCommand implements Command{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		return "homePrestador.jsp";
+		
+		request.getSession().invalidate();
+		return "index.jsp";
 	}
 
 }

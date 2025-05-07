@@ -8,13 +8,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class GetPaginaPrestadorCommand implements Command{
+public class GetFormHorarioAgendamentoCommand implements Command{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		return "homePrestador.jsp";
+	
+		return "cadastrarAgenda.jsp";
 	}
 
 }
