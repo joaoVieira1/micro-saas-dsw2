@@ -35,4 +35,11 @@ public class ImagemServico {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	@Override
+	public String toString() {
+		return "ImagemServico [foto=" + foto + ", descricao=" + descricao + "]";
+	}
+	
+	
 }

@@ -39,8 +39,11 @@ public class ImagemServicoDao {
 			}
 		}
 
+
 		return imagens;
 	}
+	
+	 
 	
 	public boolean inserirImagem(ImagemServico imagem, int prestadorID) throws SQLException {
 		int rows = 0;

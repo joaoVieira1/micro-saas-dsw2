@@ -20,6 +20,7 @@ import com.microsaas.tattoo.model.utils.CriptografiaUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class LoginCommand implements Command{
 
@@ -50,7 +51,9 @@ public class LoginCommand implements Command{
 				
 				List<ImagemServico> imagens = (ArrayList<ImagemServico>) imagemDao.listarImagensPorPrestador(usuario.getRefId());
 		        
-				request.setAttribute("imagens", imagens);
+				HttpSession session = request.getSession();
+		        session.setAttribute("imagens", imagens);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ServletException e) {

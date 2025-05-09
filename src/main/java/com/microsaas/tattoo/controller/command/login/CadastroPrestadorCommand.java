@@ -88,22 +88,20 @@ public class CadastroPrestadorCommand implements Command{
 				Connection connection = DatabaseConnection.getConnection();
 				connection.setAutoCommit(false);
 				UsuarioDao dao = new UsuarioDao(connection);
+				
 				PrestadorDao prestadorDao = new PrestadorDao(connection);
 				ImagemServicoDao daoImagem = new ImagemServicoDao(connection);
 				
 				Usuario usuarioLogado = dao.retornarUsuarioPeloEmail(email);
 				List<ImagemServico> imagens = (ArrayList<ImagemServico>) daoImagem.listarImagensPorPrestador(usuarioLogado.getRefId());
-				System.out.println("cadastroPrestador[usuarioLogado]" + usuarioLogado);
 
 				
 				Prestador prestadorLogado = prestadorDao.retornarPrestadorPeloIdDoUsuarioLogado(usuarioLogado.getRefId());
-				System.out.println("cadastroPrestador[prestadorLogado]" + prestadorLogado);
 
 				HttpSession session = request.getSession();
 				session.setAttribute("prestadorLogado", prestadorLogado);
-				System.out.println("cadastroPrestador" + prestadorLogado.getFoto());
 		        session.setAttribute("imagens", imagens);
-				
+				session.setAttribute("usuario", novoUsuario);
 				
 			}catch(SQLException e) {
 				mensagem = cadastroService.tratarErroCadastroPrestador(e);
@@ -120,3 +118,5 @@ public class CadastroPrestadorCommand implements Command{
 	}
 
 }
+
+
