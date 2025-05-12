@@ -45,7 +45,6 @@ public class LoginService {
 			}
 			
 			Prestador prestadorLogado = prestadorDao.retornarPrestadorPeloIdDoUsuarioLogado(usuario.getRefId());
-
 			
 			HttpSession session = request.getSession(true);
 			session.setAttribute("prestadorLogado", prestadorLogado);

@@ -11,6 +11,7 @@ public class Agenda {
     private LocalDateTime dataHora;
     private StatusAgenda status; // "OCUPADO" ou "DESOCUPADO"
     private String descricao;
+    private String dataHoraFormatada;
 
     public Agenda() {super();}
 
@@ -22,7 +23,15 @@ public class Agenda {
         this.status = status;
         this.descricao = descricao;
     }
+    
+    public String getDataHoraFormatada() {
+        return dataHoraFormatada;
+    }
 
+    public void setDataHoraFormatada(String dataHoraFormatada) {
+        this.dataHoraFormatada = dataHoraFormatada;
+    }
+    
     public int getId() {
         return id;
     }

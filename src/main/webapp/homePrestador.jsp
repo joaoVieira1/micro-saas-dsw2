@@ -7,10 +7,8 @@
 <%
 Prestador prestador = (Prestador) session.getAttribute("prestadorLogado");
 List<ImagemServico> imagens = (List<ImagemServico>) session.getAttribute("imagens");
-System.out.println("imagens[homePrestador]" + imagens);
 request.setAttribute("imagens", imagens);
 %>
-
 
 <html>
 <head>
@@ -56,6 +54,12 @@ h2 {
 .perfil-info p {
 	font-size: 1.1rem;
 	margin: 1rem 0;
+}
+
+.perfil-info{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .btn-container {
@@ -122,31 +126,20 @@ h2 {
 				<%=prestador.getNomeCompleto()%></p>
 		</div>
 
-		<form action="login.do?action=logout" method="post"
-			style="display: inline;">
-			<button type="submit" class="btn btn-outline-danger">Logout</button>
-		</form>
-
-
 		<div class="btn-container">
 			<a href="prestador.do?action=getFormTatuagem"
-				class="btn btn-outline-primary">Cadastrar Tatuagem ao portfólio</a>
+				class="btn btn-outline-primary">Cadastrar Tatuagem ao Portfólio</a>
+			<a href="prestador.do?action=getPortfolio"
+				class="btn btn-outline-primary">Conferir Portfólio</a>
 			<a href="prestador.do?action=getFormHorario"
 				class="btn btn-outline-success">Cadastrar Horário</a>
+			<a href="prestador.do?action=getHorario"
+				class="btn btn-outline-success">Conferir Horários</a>
+			<form action="login.do?action=logout" method="post"style="display: inline;">
+				<button type="submit" class="btn btn-outline-danger">Logout</button>
+			</form>
 		</div>
 
-		<div class="img-galeria">
-			<c:forEach var="imagem" items="${imagens}">
-				<div class="img-item">
-					<img src="imagem?tipo=servico&nome=${imagem.foto}" width="200" />
-					<p>${imagem.descricao}</p>
-				</div>
-			</c:forEach>
-		</div>
-
-		<c:if test="${empty imagens}">
-			<p class="sem-imagens">Nenhuma imagem cadastrada.</p>
-		</c:if>
 	</div>
 </body>
 
