@@ -12,10 +12,10 @@ import java.io.IOException;
 import com.microsaas.tattoo.controller.command.Command;
 import com.microsaas.tattoo.controller.command.login.GetCadastroClienteCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroPrestadorCommand;
-import com.microsaas.tattoo.controller.command.login.GetFormHorarioAgendamentoCommand;
-import com.microsaas.tattoo.controller.command.login.GetFormTatuagemCommand;
-import com.microsaas.tattoo.controller.command.login.PostarTatuagemCommand;
-import com.microsaas.tattoo.controller.command.login.PublicarHorarioCommand;
+import com.microsaas.tattoo.controller.command.prestador.GetFormHorarioAgendamentoCommand;
+import com.microsaas.tattoo.controller.command.prestador.GetFormTatuagemCommand;
+import com.microsaas.tattoo.controller.command.prestador.PostarTatuagemCommand;
+import com.microsaas.tattoo.controller.command.prestador.PublicarHorarioCommand;
 
 @WebServlet("/prestador.do")
 @MultipartConfig(

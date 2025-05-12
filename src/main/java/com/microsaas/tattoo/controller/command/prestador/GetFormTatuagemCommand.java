@@ -1,4 +1,4 @@
-package com.microsaas.tattoo.controller.command.login;
+package com.microsaas.tattoo.controller.command.prestador;
 
 import java.io.IOException;
 
