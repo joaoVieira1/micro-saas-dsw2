@@ -55,6 +55,11 @@
         .card-text {
             margin-bottom: 8px;
         }
+        .btn-container{
+        	display: flex;
+        	align-items: center;
+        	justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -64,14 +69,14 @@
     <form method="get" action="cliente.do" class="filtro-form">
     	<input type="hidden" name="action" value="filtrarTatuadores">
     	Filtrar por cidade:
-	    <select name="cidade">
-	        <option value="">-- Todas --</option>
-	        <option value="Araraquara" ${cidadeSelecionada == 'Araraquara' ? 'selected' : ''}>Araraquara</option>
-	        <option value="São Carlos" ${cidadeSelecionada == 'São Carlos' ? 'selected' : ''}>São Carlos</option>
-	        <option value="Matão" ${cidadeSelecionada == 'Matão' ? 'selected' : ''}>Matão</option>
-	    </select>
-	
-	    <input type="submit" value="Filtrar" class="btn btn-dark">
+    <select name="cidade">
+        <option value="">-- Todas --</option>
+        <option value="Araraquara" ${cidadeSelecionada == 'Araraquara' ? 'selected' : ''}>Araraquara</option>
+        <option value="São Carlos" ${cidadeSelecionada == 'São Carlos' ? 'selected' : ''}>São Carlos</option>
+        <option value="Matão" ${cidadeSelecionada == 'Matão' ? 'selected' : ''}>Matão</option>
+    </select>
+
+    <input type="submit" value="Filtrar" class="btn btn-dark">
 	</form>
 
     <div class="container">
@@ -92,7 +97,13 @@
             </c:forEach>
         </div>
     </div>
-
+	
+		<div class="btn-container">
+			<form action="login.do?action=logout" method="post">
+				<button type="submit" class="btn btn-outline-danger">Logout</button>
+			</form>
+		</div>
+	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
