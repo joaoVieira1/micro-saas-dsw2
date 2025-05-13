@@ -25,8 +25,6 @@ public class ImagemServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String tipo = request.getParameter("tipo"); // "perfil" ou "servico"
         String nomeImagem = request.getParameter("nome");
-        System.out.println("ImagemServlet[nomeRequest]" + request.getParameter("nome"));
-
 
         if (tipo == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Parâmetro 'tipo' obrigatório (perfil ou servico).");
@@ -74,8 +72,6 @@ public class ImagemServlet extends HttpServlet {
         response.setContentType(contentType != null ? contentType : "image/jpeg");
         response.setContentLength((int) arquivoImagem.length());
         
-        System.out.println("ImagemServlet[nomeImagem]" + nomeImagem);
-
         try (FileInputStream fis = new FileInputStream(arquivoImagem);
              OutputStream os = response.getOutputStream()) {
 

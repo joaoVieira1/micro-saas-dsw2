@@ -53,8 +53,8 @@ public class LoginService {
             session.setAttribute("cadastrado", "cadastrado");
             
             return usuario.getTipoUsuario() == TipoUsuario.CLIENTE
-                    ? "login.do?action=getPaginaCliente"
-                    : "login.do?action=getPaginaPrestador";
+                    ? "cliente.do?action=getHomeCliente"
+                    : "prestador.do?action=getPaginaPrestador";
 				
 		}finally {
 			if(connection != null) {

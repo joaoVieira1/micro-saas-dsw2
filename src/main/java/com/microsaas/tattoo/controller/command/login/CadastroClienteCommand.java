@@ -58,7 +58,7 @@ public class CadastroClienteCommand implements Command{
 		request.setAttribute("mensagem", mensagem);
 		request.setAttribute("salvo", salvo);
 		
-		return "cadastroCliente.jsp";
+		return "cliente.do?action=getHomeCliente";
 	}
 
 }

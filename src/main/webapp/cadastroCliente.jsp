@@ -85,17 +85,17 @@
 
             <div class="mb-3">
                 <label for="cpf" class="form-label">CPF</label>
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="XXX.XXX.XXX-XX" required>
             </div>
 
             <div class="mb-3">
                 <label for="endereco" class="form-label">Endereço</label>
-                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite seu endereço">
+                <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Digite seu endereço" required>
             </div>
 
             <div class="mb-3">
                 <label for="contato" class="form-label">Contato</label>
-                <input type="text" class="form-control" id="contato" name="contato" placeholder="(XX) XXXXX-XXXX">
+                <input type="text" class="form-control" id="contato" name="contato" placeholder="(XX) XXXXX-XXXX" required>
             </div>
 
             <div class="d-grid gap-2 mt-4">

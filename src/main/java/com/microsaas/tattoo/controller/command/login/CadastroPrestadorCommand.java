@@ -114,7 +114,7 @@ public class CadastroPrestadorCommand implements Command{
 		request.setAttribute("mensagem", mensagem);
 		request.setAttribute("salvo", salvo);
 		
-		return "homePrestador.jsp";
+		return "prestador.do?action=getPaginaPrestador";
 	}
 
 }

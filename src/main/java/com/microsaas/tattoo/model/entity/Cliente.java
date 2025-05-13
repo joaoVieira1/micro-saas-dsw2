@@ -2,6 +2,7 @@ package com.microsaas.tattoo.model.entity;
 
 public class Cliente {
 	
+	private int id;
 	private String nome;
 	private String CPF;
 	private String endereco;
@@ -12,6 +13,7 @@ public class Cliente {
 	}
 	
 	public Cliente(String nome, String CPF, String endereco, String contato) {
+		setId(id);
 		setNome(nome);
 		setCPF(CPF);
 		setEndereco(endereco);
@@ -42,7 +44,16 @@ public class Cliente {
 	public void setContato(String contato) {
 		this.contato = contato;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
+
 	
 	
 }

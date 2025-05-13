@@ -44,6 +44,42 @@ public class PrestadorDao {
 		return prestador;
 	}
 	
+	public List<Prestador> retornarPrestadores(String cidadeFiltro)throws SQLException{
+		List<Prestador> prestadores = new ArrayList<>();
+		
+		String sql = "SELECT * FROM prestador";
+		
+		if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
+			sql += " WHERE cidade_prestador = ?";
+		}
+		
+		
+		try(var stmt = connection.prepareStatement(sql)){
+			if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
+				stmt.setString(1, cidadeFiltro);
+			}
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Prestador p = new Prestador();
+				
+				p.setId(rs.getInt("id"));
+				p.setNomeFantasia(rs.getString("nome_fantasia"));
+				p.setNomeCompleto(rs.getString("nome_completo"));
+				p.setFoto(rs.getString("foto_perfil"));
+				p.setDescricao(rs.getString("descricao"));
+				p.setCidadePrestador(rs.getString("cidade_prestador"));
+				
+				prestadores.add(p);
+			}
+			
+			rs.close();
+		}
+		
+		return prestadores;
+	}
+	
 	public List<Agenda> retornarAngendamentos(int prestadorId) throws SQLException{
 		List<Agenda> agendamentos = new ArrayList<>();
 		
