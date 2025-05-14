@@ -1,6 +1,7 @@
 package com.microsaas.tattoo.model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,20 +24,29 @@ public class PrestadorDao {
 
 	private static final String RETORNAR_PRESTADOR_POR_NOME_FANTASIA = "select * from prestador where id = ?";
 	private static final String RETORNAR_HORARIOS_PRESTADOR = "SELECT * FROM agendamento WHERE prestador_id = ?";
-	private static final String TOTAL_TATUADORES = "SELECT COUNT(id) AS totalTatuadores FROM prestador";
-	private int paginacao = 3;
+	private int tatuadoresPorPagina = 3;
 	
-	public int getTotalTatuadores() throws SQLException {
+	public int getTotalTatuadores(String cidadeFiltro) throws SQLException {
 		int totalTatuadores = 0;
+		String sql = "SELECT COUNT(id) AS totalTatuadores FROM prestador";
 		
-		try(var stmt = connection.prepareCall(TOTAL_TATUADORES)){
-			ResultSet rs = stmt.executeQuery();
-			rs.next();
-			totalTatuadores = rs.getInt("totalTatuadores");
-			totalTatuadores /= paginacao;
+		if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
+			sql += " WHERE cidade_prestador = ?";
 		}
 		
-		return totalTatuadores;
+		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	        if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
+	            stmt.setString(1, cidadeFiltro);
+	        }
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            totalTatuadores = rs.getInt("totalTatuadores");
+	        }
+	        
+	        rs.close();
+	    }
+		
+		return (int) Math.ceil((double) totalTatuadores / tatuadoresPorPagina);
 	}
 	
 	public Prestador retornarPrestadorPeloIdDoUsuarioLogado(int id) throws SQLException {
@@ -53,26 +63,34 @@ public class PrestadorDao {
 							rs.getString("foto_perfil"), rs.getString("endereco"),
 							rs.getString("descricao"), rs.getString("cidade_prestador"));
 				}
+				
+				rs.close();
 			}
 		}
 
 		return prestador;
 	}
 	
-	public List<Prestador> retornarPrestadores(String cidadeFiltro)throws SQLException{
+	public List<Prestador> retornarPrestadores(String cidadeFiltro, int pagina)throws SQLException{
 		List<Prestador> prestadores = new ArrayList<>();
 		
 		String sql = "SELECT * FROM prestador";
+		boolean temFiltro = cidadeFiltro != null && !cidadeFiltro.isEmpty();
 		
-		if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
+		if (temFiltro) {
 			sql += " WHERE cidade_prestador = ?";
 		}
 		
+		sql += " ORDER BY nome_fantasia LIMIT ? OFFSET ?";
 		
 		try(var stmt = connection.prepareStatement(sql)){
-			if (cidadeFiltro != null && !cidadeFiltro.isEmpty()) {
-				stmt.setString(1, cidadeFiltro);
-			}
+			int i = 1;
+	        if (temFiltro) {
+	            stmt.setString(i++, cidadeFiltro);
+	        }
+
+	        stmt.setInt(i++, tatuadoresPorPagina); // LIMIT
+	        stmt.setInt(i, pagina * tatuadoresPorPagina);
 			
 			ResultSet rs = stmt.executeQuery();
 			

@@ -25,17 +25,32 @@ public class FiltrarTatuadoresCommand implements Command{
 		Connection connection = null;
 		List<Prestador> prestadores = new ArrayList<>(); 
 		
+		int pagina = 0;
+		int totalPaginas = 0;
+		String paginaStr = request.getParameter("pagina");
+		
+		if (paginaStr != null) {
+	        try {
+	            pagina = Integer.parseInt(paginaStr);
+	        } catch (NumberFormatException e) {
+	            pagina = 0; // fallback
+	        }
+	    }
+		
 		try {
 			connection = DatabaseConnection.getConnection();
+			
 			PrestadorDao dao = new PrestadorDao(connection);
+			prestadores = dao.retornarPrestadores(cidadeFiltro, pagina);
+			totalPaginas = dao.getTotalTatuadores(cidadeFiltro);
 			
-			prestadores = dao.retornarPrestadores(cidadeFiltro);
-			
+			request.setAttribute("pagina", pagina);
+			request.setAttribute("totalPaginas", totalPaginas);
+			request.setAttribute("prestadores", prestadores);
+			request.setAttribute("cidadeSelecionada", cidadeFiltro);
 		}catch(SQLException e ) {
 			e.printStackTrace();
 		}
-		
-		request.setAttribute("prestadores", prestadores);
 		
 		return "homeCliente.jsp";
 	}

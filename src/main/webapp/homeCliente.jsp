@@ -70,7 +70,7 @@
     	<input type="hidden" name="action" value="filtrarTatuadores">
     	Filtrar por cidade:
     <select name="cidade">
-        <option value="">-- Todas --</option>
+        <option value="">Todas</option>
         <option value="Araraquara" ${cidadeSelecionada == 'Araraquara' ? 'selected' : ''}>Araraquara</option>
         <option value="São Carlos" ${cidadeSelecionada == 'São Carlos' ? 'selected' : ''}>São Carlos</option>
         <option value="Matão" ${cidadeSelecionada == 'Matão' ? 'selected' : ''}>Matão</option>
@@ -100,6 +100,24 @@
 	        </c:forEach>
 	    </div>
 	</div>
+	
+	<p class="text-center mt-4">
+	    <c:if test="${pagina > 0}">
+	        <a class="btn btn-outline-dark me-2"
+	           href="cliente.do?action=filtrarTatuadores&pagina=${pagina - 1}&cidade=${cidadeSelecionada}">
+	           Anterior
+	        </a>
+	    </c:if>
+	
+	    <c:if test="${pagina < totalPaginas - 1}">
+	        <a class="btn btn-outline-dark"
+	           href="cliente.do?action=filtrarTatuadores&pagina=${pagina + 1}&cidade=${cidadeSelecionada}">
+	           Próximo
+	        </a>
+	    </c:if>
+	</p>
+	
+	<br>
 	
 	<div class="btn-container">
 		<form action="login.do?action=logout" method="post">

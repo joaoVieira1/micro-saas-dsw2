@@ -35,7 +35,7 @@ public class ImagemServicoDao {
 		                img.setDescricao(rs.getString("descricao"));
 		                imagens.add(img);
 		            }
-
+				 rs.close();
 			}
 		}
 

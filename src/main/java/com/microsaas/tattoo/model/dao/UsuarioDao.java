@@ -44,6 +44,8 @@ public class UsuarioDao {
 					usuario.setTipoUsuario(tipoUsuario);
 					usuario.setRefId(result.getInt("ref_id"));
 				}
+				
+				result.close();
 			}
 		}
 		
@@ -85,6 +87,7 @@ public class UsuarioDao {
 						idCliente = generatedKey.getInt(1);
 					}
 					
+					generatedKey.close();
 				}
 	
 			};	
@@ -112,6 +115,7 @@ public class UsuarioDao {
 						idPrestador = generatedKey.getInt(1);
 					}
 					
+					generatedKey.close();
 				}
 			
 			};
