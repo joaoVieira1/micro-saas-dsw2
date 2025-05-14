@@ -80,29 +80,32 @@
 	</form>
 
     <div class="container">
-        <div class="row">
-            <c:forEach var="prestador" items="${prestadores}">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="https://via.placeholder.com/400x200.png?text=Foto+do+Tatuador" class="card-img-top" alt="Foto do Tatuador">
-                        <div class="card-body">
-                            <h5 class="card-title">${prestador.nomeFantasia}</h5>
-                            <p class="card-text"><strong>Nome completo:</strong> ${prestador.nomeCompleto}</p>
-                            <p class="card-text"><strong>Cidade:</strong> ${prestador.cidadePrestador}</p>
-                            <p class="card-text"><strong>Sobre:</strong> ${prestador.descricao}</p>
-                            <a href="verPrestador.do?id=${prestador.id}" class="btn btn-dark">Ver mais</a>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
+	    <div class="row justify-content-center">
+	        <c:forEach var="prestador" items="${prestadores}">
+	            <div class="col-md-6 col-lg-4 mb-4">
+	                <div class="card h-100 shadow-sm border-0 rounded-4">
+	                    <div class="text-center pt-4">
+	                        <img src="imagens.do?nomeFoto=${prestador.foto}" class="rounded-circle shadow" 
+	                             alt="Foto do Tatuador" width="120" height="120" style="object-fit: cover;">
+	                    </div>
+	                    <div class="card-body text-center">
+	                        <h5 class="card-title fw-bold mt-3">${prestador.nomeFantasia}</h5>
+	                        <p class="card-text text-muted mb-1"><strong>Nome:</strong> ${prestador.nomeCompleto}</p>
+	                        <p class="card-text text-muted mb-1"><strong>Cidade:</strong> ${prestador.cidadePrestador}</p>
+	                        <p class="card-text text-muted"><strong>Sobre:</strong><br>${prestador.descricao}</p>
+	                        <a href="verPrestador.do?id=${prestador.id}" class="btn btn-outline-dark mt-2">Ver mais</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </c:forEach>
+	    </div>
+	</div>
 	
-		<div class="btn-container">
-			<form action="login.do?action=logout" method="post">
-				<button type="submit" class="btn btn-outline-danger">Logout</button>
-			</form>
-		</div>
+	<div class="btn-container">
+		<form action="login.do?action=logout" method="post">
+			<button type="submit" class="btn btn-outline-danger">Logout</button>
+		</form>
+	</div>
 	
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -56,9 +56,7 @@ public class CadastroPrestadorCommand implements Command{
 		String mensagem = "";
 		Boolean salvo = false;
 		CadastroService cadastroService = new CadastroService();
-		
-		System.out.println("cadastroPrestador[contentType]" + contentType);
-	
+			
 		
 		if(!tiposPermitidos.contains(contentType)) {
 			mensagem = "Selecione uma foto do tipo png ou jpeg";

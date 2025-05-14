@@ -23,7 +23,22 @@ public class PrestadorDao {
 
 	private static final String RETORNAR_PRESTADOR_POR_NOME_FANTASIA = "select * from prestador where id = ?";
 	private static final String RETORNAR_HORARIOS_PRESTADOR = "SELECT * FROM agendamento WHERE prestador_id = ?";
-
+	private static final String TOTAL_TATUADORES = "SELECT COUNT(id) AS totalTatuadores FROM prestador";
+	private int paginacao = 3;
+	
+	public int getTotalTatuadores() throws SQLException {
+		int totalTatuadores = 0;
+		
+		try(var stmt = connection.prepareCall(TOTAL_TATUADORES)){
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			totalTatuadores = rs.getInt("totalTatuadores");
+			totalTatuadores /= paginacao;
+		}
+		
+		return totalTatuadores;
+	}
+	
 	public Prestador retornarPrestadorPeloIdDoUsuarioLogado(int id) throws SQLException {
 		Prestador prestador = null;
 
