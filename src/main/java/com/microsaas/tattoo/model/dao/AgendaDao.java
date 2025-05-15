@@ -2,8 +2,11 @@ package com.microsaas.tattoo.model.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.microsaas.tattoo.model.entity.ImagemServico;
 
@@ -16,7 +19,7 @@ public class AgendaDao {
 	}
 	
 	private static final String INSERIR_HORARIO = "insert into agendamento (prestador_id,data_hora) values (?,?)";
-	
+
 	
 	public boolean inserirHorario(String horario, int prestadorID) throws SQLException {
 		int rows = 0;
@@ -33,4 +36,5 @@ public class AgendaDao {
 		
 		return rows > 0;
 	}
+	
 }

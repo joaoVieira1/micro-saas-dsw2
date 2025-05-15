@@ -93,7 +93,7 @@
 	                        <p class="card-text text-muted mb-1"><strong>Nome:</strong> ${prestador.nomeCompleto}</p>
 	                        <p class="card-text text-muted mb-1"><strong>Cidade:</strong> ${prestador.cidadePrestador}</p>
 	                        <p class="card-text text-muted"><strong>Sobre:</strong><br>${prestador.descricao}</p>
-	                        <a href="verPrestador.do?id=${prestador.id}" class="btn btn-outline-dark mt-2">Ver mais</a>
+	                        <a href="cliente.do?action=verMais&id=${prestador.id}" class="btn btn-outline-dark mt-2">Ver mais</a>
 	                    </div>
 	                </div>
 	            </div>

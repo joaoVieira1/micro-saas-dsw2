@@ -10,6 +10,8 @@ import java.io.IOException;
 
 import com.microsaas.tattoo.controller.command.Command;
 import com.microsaas.tattoo.controller.command.cliente.FiltrarTatuadoresCommand;
+import com.microsaas.tattoo.controller.command.cliente.VerHorariosCommand;
+import com.microsaas.tattoo.controller.command.cliente.VerMaisCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetFormHorarioAgendamentoCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetFormTatuagemCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetHorarioCommand;
@@ -37,6 +39,10 @@ public class ClienteServlet extends HttpServlet {
 		
 		if(action.equals("filtrarTatuadores")) {
 			command = new FiltrarTatuadoresCommand();
+		}else if(action.equals("verMais")) {
+			command = new VerMaisCommand();
+		}else if(action.equals("verHorarios")) {
+			command = new VerHorariosCommand();
 		}
 		
 		String view = command.execute(request, response);

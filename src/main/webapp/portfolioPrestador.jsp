@@ -76,22 +76,32 @@ h2 {
 	
 	<h2>Seu Portfólio</h2>
 	
-	<div class="portfolio">
+	<div id="carouselPortfolio" class="carousel slide" style="max-width: 600px; margin: auto;">
+	    <div class="carousel-inner">
 	
-		<div class="img-galeria">
-			<c:forEach var="imagem" items="${imagens}">
-				<div class="img-item">
-					<img src="imagem?tipo=servico&nome=${imagem.foto}" width="200" />
-					<p>${imagem.descricao}</p>
-				</div>
-			</c:forEach>
-		</div>
-
-		<c:if test="${empty imagens}">
-			<p class="sem-imagens">Nenhuma imagem cadastrada.</p>
-		</c:if>
+	        <c:forEach var="imagem" items="${imagens}" varStatus="status">
+	            <div class="carousel-item ${status.first ? 'active' : ''}">
+	                <div class="d-flex flex-column align-items-center p-3">
+	                    <img src="imagensPort.do?nomeFoto=${imagem.foto}" class="d-block w-100" style="max-height: 400px; object-fit: contain;" />
+	                    <p class="mt-2 text-center">${imagem.descricao}</p>
+	                </div>
+	            </div>
+	        </c:forEach>
 	
+	    </div>
+	
+	    <!-- Botões de navegação -->
+	    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPortfolio" data-bs-slide="prev">
+	        <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+	        <span class="visually-hidden">Anterior</span>
+	    </button>
+	    <button class="carousel-control-next" type="button" data-bs-target="#carouselPortfolio" data-bs-slide="next">
+	        <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+	        <span class="visually-hidden">Próximo</span>
+	    </button>
 	</div>
 	
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

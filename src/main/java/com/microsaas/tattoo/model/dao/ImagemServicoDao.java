@@ -38,8 +38,7 @@ public class ImagemServicoDao {
 				 rs.close();
 			}
 		}
-
-
+		
 		return imagens;
 	}
 	
