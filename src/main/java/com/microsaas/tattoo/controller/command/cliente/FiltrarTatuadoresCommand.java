@@ -14,6 +14,7 @@ import com.microsaas.tattoo.model.entity.Prestador;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class FiltrarTatuadoresCommand implements Command{
 
@@ -39,6 +40,7 @@ public class FiltrarTatuadoresCommand implements Command{
 		
 		try {
 			connection = DatabaseConnection.getConnection();
+			HttpSession session = request.getSession();
 			
 			PrestadorDao dao = new PrestadorDao(connection);
 			prestadores = dao.retornarPrestadores(cidadeFiltro, pagina);
@@ -47,6 +49,7 @@ public class FiltrarTatuadoresCommand implements Command{
 			request.setAttribute("pagina", pagina);
 			request.setAttribute("totalPaginas", totalPaginas);
 			request.setAttribute("prestadores", prestadores);
+			session.setAttribute("prestadores", prestadores);
 			request.setAttribute("cidadeSelecionada", cidadeFiltro);
 		}catch(SQLException e ) {
 			e.printStackTrace();

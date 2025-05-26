@@ -53,6 +53,7 @@ public class LoginCommand implements Command{
 		        
 				HttpSession session = request.getSession();
 		        session.setAttribute("imagens", imagens);
+				session.setAttribute("usuario", usuario);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -18,6 +18,7 @@ import com.microsaas.tattoo.model.utils.CriptografiaUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class CadastroClienteCommand implements Command{
 
@@ -47,6 +48,12 @@ public class CadastroClienteCommand implements Command{
 				
 				salvo = cadastroService.cadastrarCliente(novoUsuario, novoCliente);
 				mensagem = "Cadastro realizado com sucesso!";
+				
+				//novoUsuario.setRefId(novoCliente.getId());
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("usuario", novoUsuario);
+				session.setAttribute("clienteLogado", novoCliente);
 				
 			}catch(SQLException e) {
 				mensagem = cadastroService.tratarErroCadastroCliente(e);

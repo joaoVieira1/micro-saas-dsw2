@@ -12,6 +12,7 @@ import com.microsaas.tattoo.model.entity.Prestador;
 import com.microsaas.tattoo.model.entity.Usuario;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpSession;
 
 public class CadastroService {
 	
@@ -31,6 +32,7 @@ public class CadastroService {
 			salvo = dao.inserirUsuario(usuario);
 			
 			connection.commit();
+			
 			
 			return salvo;
 		}catch(SQLException e) {

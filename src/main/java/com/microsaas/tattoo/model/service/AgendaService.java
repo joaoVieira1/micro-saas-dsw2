@@ -27,6 +27,76 @@ public class AgendaService {
 		return agendamentos;
 	}
 	
+	public boolean ocuparHorario(int horarioId,int clienteId) throws SQLException, ServletException {
+		Connection connection = null;
+		Boolean salvo = false;
+		
+		try {
+			connection = DatabaseConnection.getConnection();
+			connection.setAutoCommit(false);
+			
+			AgendaDao dao = new AgendaDao(connection);
+			
+			salvo = dao.ocuparHorario(horarioId, clienteId);
+			
+			connection.commit();
+			return salvo;
+		}catch(SQLException e) {
+			if(connection != null) {
+				try {
+					connection.rollback();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			throw e;
+		}finally{
+			if(connection != null) {
+				try {
+					connection.setAutoCommit(true);
+					connection.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public boolean desocuparHorario(int horarioId) throws SQLException, ServletException {
+		Connection connection = null;
+		Boolean salvo = false;
+		
+		try {
+			connection = DatabaseConnection.getConnection();
+			connection.setAutoCommit(false);
+			
+			AgendaDao dao = new AgendaDao(connection);
+			
+			salvo = dao.desocuparHorario(horarioId);
+			
+			connection.commit();
+			return salvo;
+		}catch(SQLException e) {
+			if(connection != null) {
+				try {
+					connection.rollback();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			throw e;
+		}finally{
+			if(connection != null) {
+				try {
+					connection.setAutoCommit(true);
+					connection.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	public boolean postarHorario(String horario, int prestadorID)throws ServletException, SQLException {
 		
 		

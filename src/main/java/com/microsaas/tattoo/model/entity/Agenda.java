@@ -79,4 +79,13 @@ public class Agenda {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
+	@Override
+	public String toString() {
+		return "Agenda [id=" + id + ", prestadorId=" + prestadorId + ", clienteId=" + clienteId + ", dataHora="
+				+ dataHora + ", status=" + status + ", descricao=" + descricao + ", dataHoraFormatada="
+				+ dataHoraFormatada + "]";
+	}
+    
+    
 }

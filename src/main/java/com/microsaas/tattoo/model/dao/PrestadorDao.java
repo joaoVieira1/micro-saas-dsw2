@@ -132,24 +132,26 @@ public class PrestadorDao {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'às' HH:mm");
 				
 				while(rs.next()) {
-					Agenda a = new Agenda();
-					
-					a.setClienteId(rs.getInt("cliente_id"));
-					a.setPrestadorId(rs.getInt("prestador_id"));
-					
-					String statusString = rs.getString("status");
-					StatusAgenda status = StatusAgenda.valueOf(statusString);
-					a.setStatus(status);
-					
-					Timestamp timestamp = rs.getTimestamp("data_hora");
-					LocalDateTime dataHora = timestamp.toLocalDateTime();
-					a.setDataHora(dataHora);
-					
-					String dataFormatada = dataHora.format(formatter);
+				    Agenda a = new Agenda();
+
+				    a.setId(rs.getInt("id")); 
+				    a.setClienteId(rs.getInt("cliente_id"));
+				    a.setPrestadorId(rs.getInt("prestador_id"));
+
+				    String statusString = rs.getString("status");
+				    StatusAgenda status = StatusAgenda.valueOf(statusString);
+				    a.setStatus(status);
+
+				    Timestamp timestamp = rs.getTimestamp("data_hora");
+				    LocalDateTime dataHora = timestamp.toLocalDateTime();
+				    a.setDataHora(dataHora);
+
+				    String dataFormatada = dataHora.format(formatter);
 				    a.setDataHoraFormatada(dataFormatada);
-					
-					agendamentos.add(a);
+
+				    agendamentos.add(a);
 				}
+
 				
 				rs.close();
 			}
@@ -173,6 +175,7 @@ public class PrestadorDao {
 				while(rs.next()) {
 					Agenda a = new Agenda();
 					
+					a.setId(rs.getInt("id"));
 					a.setClienteId(rs.getInt("cliente_id"));
 					a.setPrestadorId(rs.getInt("prestador_id"));
 					
