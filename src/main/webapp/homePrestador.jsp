@@ -6,6 +6,7 @@
 
 <%
 Prestador prestador = (Prestador) session.getAttribute("prestadorLogado");
+request.setAttribute("prestador", prestador);
 List<ImagemServico> imagens = (List<ImagemServico>) session.getAttribute("imagens");
 request.setAttribute("imagens", imagens);
 %>
@@ -133,8 +134,13 @@ h2 {
 				class="btn btn-outline-primary">Conferir Portfólio</a>
 			<a href="prestador.do?action=getFormHorario"
 				class="btn btn-outline-success">Cadastrar Horário</a>
+				
 			<a href="prestador.do?action=getHorario"
 				class="btn btn-outline-success">Conferir Horários</a>
+				
+			<a href="prestador.do?action=getLogHorario&idHorario=${prestador.getId()}"
+				class="btn btn-outline-success">Log de Horários</a>
+				
 			<form action="login.do?action=logout" method="post"style="display: inline;">
 				<button type="submit" class="btn btn-outline-danger">Logout</button>
 			</form>

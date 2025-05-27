@@ -1,6 +1,7 @@
 package com.microsaas.tattoo.model.entity;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class HistoricoAgendamento {
 	
@@ -9,6 +10,7 @@ public class HistoricoAgendamento {
 	private int prestadorId;
 	private LocalDateTime dataAgendamento;
 	private LocalDateTime dataAlteracao;
+	private String status;
 	
 	 public HistoricoAgendamento() {super();}
 	
@@ -60,6 +62,23 @@ public class HistoricoAgendamento {
 
 	public void setDataAlteracao(LocalDateTime dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+	
+	public String getDataAlteracaoFormatada() {
+        return dataAlteracao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
+
+    public String getDataAgendamentoFormatada() {
+        return dataAgendamento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
+    
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
