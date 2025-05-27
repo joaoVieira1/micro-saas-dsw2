@@ -21,22 +21,50 @@ public class AgendaDao {
 	private static final String INSERIR_HORARIO = "insert into agendamento (prestador_id,data_hora) values (?,?)";
 	private static final String OCUPAR_HORARIO = "UPDATE agendamento SET cliente_id = ?, status = 'OCUPADO' WHERE id = ?";
 	private static final String DESOCUPAR_HORARIO = "UPDATE agendamento SET cliente_id = null, status = 'DESOCUPADO' WHERE id = ?";
+	private static final String VERIFICAR_CONFLITO = "SELECT COUNT(*) FROM agendamento WHERE prestador_id = ? AND data_hora = ?";
+	private static final String CONFIRMAR_AGENDA = "UPDATE agendamento SET isAceito = ? WHERE id = ?";
+
 	
 	public boolean inserirHorario(String horario, int prestadorID) throws SQLException {
+	    int rows = 0;
+
+	    if (horario != null) {
+	        try (var checkStmt = connection.prepareStatement(VERIFICAR_CONFLITO)) {
+	            checkStmt.setInt(1, prestadorID);
+	            checkStmt.setString(2, horario);
+
+	            try (ResultSet rs = checkStmt.executeQuery()) {
+	                if (rs.next() && rs.getInt(1) > 0) {
+	                    return false;
+	                }
+	            }
+	        }
+
+	        try (var statement = connection.prepareStatement(INSERIR_HORARIO)) {
+	            statement.setInt(1, prestadorID);
+	            statement.setString(2, horario);
+	            rows = statement.executeUpdate();
+	        }
+	    }
+
+	    return rows > 0;
+	}
+	
+	public boolean confirmarAgenda(int horarioId, boolean isAceito) {
 		int rows = 0;
 		
-		if(horario != null) {
-			try(var statement = connection.prepareStatement(INSERIR_HORARIO)){
-				statement.setInt(1, prestadorID);
-				statement.setString(2, horario);
-					
-				rows = statement.executeUpdate();
-			}
+		try(var statement = connection.prepareStatement(CONFIRMAR_AGENDA)){
 			
+			statement.setBoolean(1, isAceito);
+			statement.setInt(2, horarioId);
+			rows = statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return rows > 0;
 	}
+
 	
 	public boolean ocuparHorario(int horarioId, int clienteId) {
         int rows = 0;

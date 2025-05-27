@@ -40,6 +40,7 @@ public class ClienteDao {
 					a.setId(rs.getInt("id"));
 					a.setClienteId(rs.getInt("cliente_id"));
 					a.setPrestadorId(rs.getInt("prestador_id"));
+					a.setAceito(rs.getBoolean("isAceito"));
 					
 					String statusString = rs.getString("status");
 					StatusAgenda status = StatusAgenda.valueOf(statusString);

@@ -35,6 +35,7 @@ public class GetHorarioCommand implements Command {
 		}
 		
 		request.setAttribute("agendamentos", agendamentos);
+		session.setAttribute("agendamentos", agendamentos);
 		
 		return "horariosPrestador.jsp";
 	}

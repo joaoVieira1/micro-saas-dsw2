@@ -12,6 +12,8 @@ import java.io.IOException;
 import com.microsaas.tattoo.controller.command.Command;
 import com.microsaas.tattoo.controller.command.login.GetCadastroClienteCommand;
 import com.microsaas.tattoo.controller.command.login.GetCadastroPrestadorCommand;
+import com.microsaas.tattoo.controller.command.prestador.ConfirmarAgendaCommand;
+import com.microsaas.tattoo.controller.command.prestador.DesconfirmarAgendaCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetFormHorarioAgendamentoCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetFormTatuagemCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetHorarioCommand;
@@ -59,6 +61,10 @@ public class PrestadorServlet extends HttpServlet {
 			command = new GetHorarioCommand();
 		}else if(action.equals("getPaginaPrestador")) {
 			command = new GetPaginaPrestadorCommand();
+		}else if(action.equals("confirmarAgenda")) {
+			command = new ConfirmarAgendaCommand();
+		}else if(action.equals("desconfirmarAgenda")) {
+			command = new DesconfirmarAgendaCommand();
 		}
 		
 		String view = command.execute(request, response);

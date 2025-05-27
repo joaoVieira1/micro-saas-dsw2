@@ -12,16 +12,18 @@ public class Agenda {
     private StatusAgenda status; // "OCUPADO" ou "DESOCUPADO"
     private String descricao;
     private String dataHoraFormatada;
+    private boolean isAceito;
 
     public Agenda() {super();}
 
-    public Agenda(int id, int prestadorId, Integer clienteId, LocalDateTime dataHora, StatusAgenda status, String descricao) {
+    public Agenda(int id, int prestadorId, Integer clienteId, LocalDateTime dataHora, StatusAgenda status, String descricao, boolean isAceito) {
         this.id = id;
         this.prestadorId = prestadorId;
         this.clienteId = clienteId;
         this.dataHora = dataHora;
         this.status = status;
         this.descricao = descricao;
+        this.isAceito = isAceito;
     }
     
     public String getDataHoraFormatada() {
@@ -79,13 +81,23 @@ public class Agenda {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+
+	public boolean isAceito() {
+		return isAceito;
+	}
+
+	public void setAceito(boolean isAceito) {
+		this.isAceito = isAceito;
+	}
 
 	@Override
 	public String toString() {
 		return "Agenda [id=" + id + ", prestadorId=" + prestadorId + ", clienteId=" + clienteId + ", dataHora="
 				+ dataHora + ", status=" + status + ", descricao=" + descricao + ", dataHoraFormatada="
-				+ dataHoraFormatada + "]";
+				+ dataHoraFormatada + ", isAceito=" + isAceito + "]";
 	}
-    
+
+	
     
 }
