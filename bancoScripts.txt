@@ -41,8 +41,20 @@ CREATE TABLE agendamento (
   prestador_id INT NOT NULL,
   cliente_id INT DEFAULT NULL,
   data_hora DATETIME NOT NULL,
+  isAceito BOOLEAN NOT NULL DEFAULT false,
   status ENUM('DESOCUPADO', 'OCUPADO') DEFAULT 'DESOCUPADO',
   CONSTRAINT fk_agendamento_prestador FOREIGN KEY (prestador_id) REFERENCES prestador(id),
   CONSTRAINT fk_agendamento_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+) ENGINE=InnoDB;
+
+CREATE TABLE historico_agendamento (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    agendamento_id INT NOT NULL,
+    prestador_id INT NOT NULL,
+    data_agendamento DATETIME NOT NULL,
+    data_alteracao  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('CRIADO','SOLICITADO','ACEITO','CANCELADO','CONCLUIDO'),
+    CONSTRAINT fk_ahistorico_id FOREIGN KEY (agendamento_id) REFERENCES agendamento(id),
+    CONSTRAINT fk_historico_prestador FOREIGN KEY (prestador_id) REFERENCES prestador(id)
 ) ENGINE=InnoDB;
 
