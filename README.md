@@ -42,10 +42,9 @@ BCrypt — Criptografia de senhas
 
 ## ⚙️ Como Executar o Projeto
 
-Clone o repositório:
-git clone https://github.com/seuusuario/ink-time.git
+Clone o repositório
 
-Configure o banco de dados MySQL:
+Configure o banco de dados MySQL
 
 Crie o banco micro_saas.
 
