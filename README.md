@@ -67,25 +67,13 @@ Configure o context.xml do Tomcat para o DataSource:
 
 Compile e execute o projeto no Tomcat.
 
-## 📦 Estrutura do Projeto
-/src
-  ├── model
-  │    ├── entity
-  │    ├── dao
-  │    └── service
-  ├── controller
-  └── view (JSP)
-
- /database
-  └── scripts.sql
-
- /webapp
-  ├── imagens
-  └── styles
-
 ## 📝 Diferenciais do Ink Time
 ✅ Foco exclusivo em tatuadores
+
 ✅ Agendamento seguro e criptografado
+
 ✅ Filtros inteligentes por cidade
+
 ✅ Interface limpa e intuitiva
+
 ✅ Carrossel dinâmico de portfólio
