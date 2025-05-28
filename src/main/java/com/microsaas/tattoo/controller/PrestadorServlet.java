@@ -17,6 +17,7 @@ import com.microsaas.tattoo.controller.command.prestador.DesconfirmarAgendaComma
 import com.microsaas.tattoo.controller.command.prestador.GetFormHorarioAgendamentoCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetFormTatuagemCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetHorarioCommand;
+import com.microsaas.tattoo.controller.command.prestador.GetLogHorarioCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetPaginaPrestadorCommand;
 import com.microsaas.tattoo.controller.command.prestador.GetPortfolioCommand;
 import com.microsaas.tattoo.controller.command.prestador.PostarTatuagemCommand;
@@ -65,6 +66,8 @@ public class PrestadorServlet extends HttpServlet {
 			command = new ConfirmarAgendaCommand();
 		}else if(action.equals("desconfirmarAgenda")) {
 			command = new DesconfirmarAgendaCommand();
+		}else if(action.equals("getLogHorario")) {
+			command = new GetLogHorarioCommand();
 		}
 		
 		String view = command.execute(request, response);
